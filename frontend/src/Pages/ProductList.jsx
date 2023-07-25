@@ -40,10 +40,10 @@ const ProductList = () => {
   return <div>
     <pre>
       {JSON.stringify(client, null, 2)}
-    </pre>
+    </pre> 
     <ProductTable products={data}/>
     <Footer />
   </div>;
 };
-
+//a pre taget majd ki kell venni, debug cucc
 export default ProductList;

@@ -11,31 +11,25 @@ const LoginForm = (user) => {
 
     const {client, login} = useClient();
 
-    const loginUser = (user) => {
-        try {
-            return fetch("/login", {
-                method: "POST",
-                headers: {
+    
 
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(user)
-            })
-            .then(function (res) {
+    const loginUser = (user) => {
+        return fetch("/login", {
+            method: "POST",
+            headers: {
+
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(user)
+        })
+            .then( (res) => {
                 const token = res.headers.get("Authorization");
                 localStorage.setItem("Token", token);
-                return token
-                //return res.json()
+                return token;
             })
             .then((client) => {
                 login(client)
             });
-        } catch {
-            //this is not gonna work ever
-            navigate("/")
-            console.log("invalid username and/or password")
-            return <h1>invalid username and/or password</h1>
-        }
     }
 
     const onSubmit = (e) => {
