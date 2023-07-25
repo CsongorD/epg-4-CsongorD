@@ -1,2 +1,2 @@
-docker build -t epg4 -f docker.dockerfile .
+docker build -t epg4 -f Dockerfile .
 pause
