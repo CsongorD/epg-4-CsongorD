@@ -27,6 +27,7 @@ public class SecurityConfig {
 
 
         http.csrf(AbstractHttpConfigurer::disable)
+                .addFilterBefore(new BearerTokenAuthenticatingFilter(), BasicAuthenticationFilter.class)
                 .addFilterBefore(new AuthenticationFilter(authenticationManager), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> {
 
