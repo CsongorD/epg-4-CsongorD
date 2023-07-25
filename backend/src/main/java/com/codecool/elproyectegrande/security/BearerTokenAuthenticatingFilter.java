@@ -21,8 +21,8 @@ public class BearerTokenAuthenticatingFilter extends OncePerRequestFilter {
             // Token is valid, let the request pass through the filter chain
             filterChain.doFilter(request, response);
         } else {
-            // Token is missing or invalid, return a 401 Unauthorized response
-            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            // Token is missing or invalid, but allow the request to proceed as permitAll()
+            filterChain.doFilter(request, response);
         }
     }
 }
