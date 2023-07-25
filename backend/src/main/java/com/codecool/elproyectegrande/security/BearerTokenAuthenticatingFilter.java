@@ -20,9 +20,9 @@ public class BearerTokenAuthenticatingFilter extends OncePerRequestFilter {
         if (token != null && token.startsWith("Bearer " + SERVICE_TOKEN)) {
             // Token is valid, let the request pass through the filter chain
             filterChain.doFilter(request, response);
-        } else {
+        }
             // Token is missing or invalid, but allow the request to proceed as permitAll()
             filterChain.doFilter(request, response);
-        }
+
     }
 }
