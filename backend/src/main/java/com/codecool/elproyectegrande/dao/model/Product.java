@@ -22,7 +22,7 @@ public class Product {
     private String description;
     private double price;
     private String image;
-    private Long sellerId;
-    private Long buyerId;
-    public boolean isAvailable(){return buyerId == null;}
+    private Long seller_id;
+    private Long buyer_id;
+    public boolean isAvailable(){return buyer_id == null;}
 }
