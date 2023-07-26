@@ -23,17 +23,13 @@ public class ClientService{
         this.passwordEncoder = passwordEncoder;
     }
 
-
     public List<Client> getAllClients() {
         return clientDAO.findAll();
     }
 
-
     public Client getClientById(Long id) {
         return clientDAO.findClientById(id);
     }
-
-
 
     public void addNewClient(NewClientDTO client) {
         System.out.println(client);

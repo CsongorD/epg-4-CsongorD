@@ -3,6 +3,7 @@ package com.codecool.elproyectegrande.dao.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 @Getter
 @Setter
@@ -14,6 +15,8 @@ public class Product {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false)
+    @NotNull
     private String name;
     private String description;
     private double price;

@@ -27,13 +27,13 @@ public class SecurityConfig {
 
 
         http.csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(new AuthenticationFilter(authenticationManager), BasicAuthenticationFilter.class)
+                .addFilterBefore(new BearerTokenAuthenticatingFilter(), BasicAuthenticationFilter.class)
+                //.addFilterBefore(new AuthenticationFilter(authenticationManager), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> {
-
                     auth.requestMatchers("/","/**","index","index.html","/static/css/**", "/static/js/**","/static/media/**","/public/**","/static/**").permitAll();
-                    auth.requestMatchers(HttpMethod.GET, "/products/**","/clients/**").permitAll();
-                    auth.requestMatchers(HttpMethod.POST,"/login","/clients").permitAll();
-                    auth.requestMatchers(HttpMethod.POST,"/products").hasAnyAuthority("USER","ADMIN");
+                    auth.requestMatchers(HttpMethod.GET, "/products/all","/clients/**").permitAll();
+                    auth.requestMatchers(HttpMethod.POST,"/login","/clients", "/products").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/products/1").hasAnyAuthority("USER","ADMIN");
                     auth.anyRequest().authenticated();
                         }
                 )

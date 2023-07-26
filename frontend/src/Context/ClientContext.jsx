@@ -9,15 +9,17 @@ export const ClientContextProvider = ( { children } ) => {
         setClient(client);
     }
 
-    const chechAuthState = useCallback(function () {
+    const checkAuthState = useCallback( () => {
+        const authtoken =localStorage.getItem("Token");
+        login(authtoken);
         //read token from local storage, send req to check auth, save to state
         //useEffect to make it authomatic
         //set null or something!
     }, [])
 
     useEffect(function () {
-        chechAuthState()
-    }, [chechAuthState])
+        checkAuthState()
+    }, [checkAuthState])
     
 
  return (
