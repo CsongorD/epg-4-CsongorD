@@ -4,6 +4,7 @@ import com.codecool.elproyectegrande.security.Role;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.*;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 
@@ -18,7 +19,11 @@ public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(nullable = false, unique = true)
+    @NotNull
     private String clientName;
+    @Column(nullable = false)
+    @NotNull
     private String password;
    // @Enumerated(EnumType.STRING)
     private String role;
