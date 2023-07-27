@@ -16,10 +16,14 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 @EnableWebSecurity(debug = true)
 public class SecurityConfig {
     private AuthenticationManager authenticationManager;
+    private TokenService tokenService;
+    private CustomUserDetailService customUserDetailService;
 
     @Autowired
-    public SecurityConfig(CustomAuthenticationManager authenticationManager) {
+    public SecurityConfig(AuthenticationManager authenticationManager, TokenService tokenService, CustomUserDetailService customUserDetailService) {
         this.authenticationManager = authenticationManager;
+        this.tokenService = tokenService;
+        this.customUserDetailService = customUserDetailService;
     }
 
     @Bean
@@ -27,13 +31,13 @@ public class SecurityConfig {
 
 
         http.csrf(AbstractHttpConfigurer::disable)
-                .addFilterBefore(new BearerTokenAuthenticatingFilter(), BasicAuthenticationFilter.class)
+                .addFilterBefore(new BearerTokenAuthenticatingFilter(tokenService, customUserDetailService), BasicAuthenticationFilter.class)
                 //.addFilterBefore(new AuthenticationFilter(authenticationManager), BasicAuthenticationFilter.class)
                 .authorizeHttpRequests((auth) -> {
-                    auth.requestMatchers("/","/**","index","index.html","/static/css/**", "/static/js/**","/static/media/**","/public/**","/static/**").permitAll();
+                    auth.requestMatchers("/","index","index.html","/static/css/**", "/static/js/**","/static/media/**","/public/**","/static/**").permitAll();
                     auth.requestMatchers(HttpMethod.GET, "/products/all","/clients/**").permitAll();
                     auth.requestMatchers(HttpMethod.POST,"/login","/clients", "/products").permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/products/1").hasAnyAuthority("USER","ADMIN");
+                    auth.requestMatchers(HttpMethod.GET,"/products/**").hasAnyAuthority("USER","ADMIN");
                     auth.anyRequest().authenticated();
                         }
                 )

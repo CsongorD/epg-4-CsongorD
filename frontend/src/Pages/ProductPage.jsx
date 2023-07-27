@@ -2,6 +2,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Loading from "./Loading/Loading";
 import "../css/ProductPage.css";
+import { fetchWithToken } from "../Context/ClientContext";
 
 const ProductPage = () => {
   const [loading, setLoading] = useState(true);
@@ -11,7 +12,8 @@ const ProductPage = () => {
   const navigate = useNavigate();
 
   const fetchProduct = (signal) => {
-    return fetch(`/products/${id}`, { signal }).then((data) => data.json());
+    return fetchWithToken("GET", localStorage.getItem("Token"), `/products/${id}`, null)
+      .then((data) => data.json());
   };
 
   useEffect(() => {

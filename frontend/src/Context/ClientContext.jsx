@@ -30,3 +30,24 @@ export const ClientContextProvider = ( { children } ) => {
 export const useClient = () => {
     return useContext(ClientContext)
 }
+
+export const fetchWithToken = (method, token, url, body) => {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+  
+    const fetchOptions = {
+      method: method,
+      headers: headers,
+    };
+  
+    if (body !== null) {
+      fetchOptions.body = JSON.stringify(body);
+    }
+
+    if (token !== null) {
+        headers["Authorization"] = "Bearer " + token;
+      }
+  
+    return fetch(url, fetchOptions);
+  };
