@@ -53,6 +53,7 @@ public class ProductService {
                 .description(product.description())
                 .price(product.price())
                 .image(imageUrl)
+                .type(product.type())
                 //.seller(product.seller())
                 //.buyer(product.buyer())
                 .build();

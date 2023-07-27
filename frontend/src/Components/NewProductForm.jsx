@@ -1,4 +1,5 @@
 import "../css/NewProductForm.css";
+import { useState } from "react";
 
 const NewProductForm = ({ onCancel, onSave }) => {
   const onSubmit = (e) => {
@@ -15,15 +16,44 @@ const NewProductForm = ({ onCancel, onSave }) => {
     return onSave(product);
   };
 
+  const [value, setValue] = useState("");
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
   return (
     <div className="firstdiv">
       <div className="container">
         <form className="product-form" onSubmit={onSubmit}>
           <h1 className="text">Upload the item you want to sell!</h1>
           <div className="form-row">
+
             <div className="input-data">
               <input name="name" id="name" required />
               <label htmlFor="name">Product name:</label>
+              <div className="underline"></div>
+            </div>
+
+            <div className="input-data textarea">
+              <label htmlFor="type">Product type:</label>
+              <select 
+                  name="type" 
+                  id="type" 
+                  required 
+                  className="input-data dropdown" 
+                  value={value} 
+                  onChange={handleChange}>
+                <option></option>
+                <option name="type" value="furniture">Furniture</option>
+                <option name="type" value="clothing">Clothing</option>
+                <option name="type" value="home-equipment">Home equipment</option>
+                <option name="type" value="toys">Toys</option>
+                <option name="type" value="sport">Sport and recreation</option>
+                <option name="type" value="baby">Baby stuff</option>
+                <option name="type"value="other">Other</option>
+              </select>
+              
               <div className="underline"></div>
             </div>
 

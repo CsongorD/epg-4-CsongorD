@@ -18,15 +18,11 @@ public class Product {
     @Column(nullable = false)
     @NotNull
     private String name;
+    private String type;
     private String description;
     private double price;
     private String image;
-  
-    /*@ManyToOne
-    @JsonBackReference(value="seller-product")
-    private Client seller;
-    @ManyToOne
-    @JsonBackReference(value="buyer-product")
-    private Client buyer;
-    public boolean isAvailable(){return buyer == null;}*/
+    private Long seller_id;
+    private Long buyer_id;
+    public boolean isAvailable(){return buyer_id == null;}
 }

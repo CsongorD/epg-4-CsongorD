@@ -42,6 +42,12 @@
     margin-bottom: 20px;
 
   }
+
+  .input-data dropdown {
+    display: flex;
+    width: 100%;
+    font-size: 17px;
+  }
   
   .input-data input {
     display: flex;
