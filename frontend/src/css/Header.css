@@ -4,18 +4,24 @@
 }
 
 .headerDiv {
+  width: 100%;
   position: relative;
   background-color: rgba(255, 255, 255, 0.2);
-  display: grid;
-  grid-template-columns: 1fr 1fr 4fr 1fr;
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Align children to the left and right */
   height: 4em;
+  padding: 25px;
 }
 
-.headerDiv > .logoContainer {
+.logoContainer {
   display: flex;
-  justify-content: space-evenly;
   align-items: center;
-  grid-column: 1;
+}
+
+.buttonContainer {
+  display: flex;
+  align-items: center;
 }
 
 .picture {
@@ -23,9 +29,8 @@
   max-height: 3em;
 }
 
-.headerDiv > .button-containers {
-  grid-column: 4;
-  display: flex;
-  justify-content: right;
-  align-items: center;
+
+
+#headerButtonContainer{
+  
 }

@@ -1,17 +1,20 @@
 import { useRouteError } from "react-router-dom";
 import Footer from "../Components/Footer";
+import "../css/ErrorMessage.css"
 
 const ErrorPage = () => {
   const error = useRouteError();
   console.error(error);
 
   return (
-    <div id="error-page">
-      <h1>Oops!</h1>
-      <p>Sorry, an unexpected error has occurred.</p>
-      <p>
+    <div className="content-holder">
+      <div className="errormessage-container">
+      <h1 className="errormessage-text">Oops!</h1>
+      <p className="errormessage-text">Sorry, an unexpected error has occurred.</p>
+      <p className="errormessage-text">
         <i>{error.statusText || error.message}</i>
       </p>
+      </div>
       <Footer />
     </div>
   );

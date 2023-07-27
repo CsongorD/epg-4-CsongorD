@@ -31,7 +31,12 @@ public class ClientController {
     }
 
     @PostMapping
-    public ResponseEntity addNewClient(@RequestBody NewClientDTO clientDTO) {
+    public ResponseEntity<?> addNewClient(@RequestBody NewClientDTO clientDTO) {
+        String clientName = clientDTO.clientName();
+        String password = clientDTO.password();
+        if(clientName.equals("") || password.equals("")){
+            return ResponseEntity.badRequest().build();
+        }
         clientService.addNewClient(clientDTO);
         return ResponseEntity.ok().build();
     }

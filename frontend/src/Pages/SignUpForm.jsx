@@ -22,6 +22,8 @@ const SignUpForm = (user) => {
   const onSubmit = (e) => {
       e.preventDefault();
       const formData = new FormData(e.target);
+
+     
       const user = {};
 
       for (let [key, value] of formData.entries()) {
@@ -81,7 +83,7 @@ const SignUpForm = (user) => {
           />
         </div>
 
-        <div className="buttons">
+        <div className="buttonContainer">
           <button className="button" type="submit">
             Sign up
           </button>

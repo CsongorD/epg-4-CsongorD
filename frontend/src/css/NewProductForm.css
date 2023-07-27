@@ -43,11 +43,17 @@
 
   }
 
-  .input-data dropdown {
+ .dropdown {
     display: flex;
-    width: 100%;
+    width: 113%;
     font-size: 17px;
-  }
+    font-weight: 600;
+    font-family: 'Poppins', sans-serif;
+ }
+
+ .product-type-label {
+  
+ }
   
   .input-data input {
     display: flex;
