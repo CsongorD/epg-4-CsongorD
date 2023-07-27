@@ -3,15 +3,10 @@ import { useNavigate } from "react-router-dom";
 import NewProductForm from "../Components/NewProductForm";
 import Loading from "./Loading/Loading";
 import Footer from "../Components/Footer";
+import { fetchWithToken } from "../Context/ClientContext";
 
 const createProduct = (product) => {
-  return fetch("/products", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(product),
-  });
+  return fetchWithToken("POST", localStorage.getItem("Token"), "/products", product);
 };
 
 const NewProductCreator = () => {

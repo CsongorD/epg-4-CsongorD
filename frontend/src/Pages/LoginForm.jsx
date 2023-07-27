@@ -4,6 +4,7 @@ import {useState} from "react";
 import Loading from "./Loading/Loading";
 import { useClient } from "../Context/ClientContext";
 import ErrorMessage from "../Components/ErrorMessage";
+import { fetchWithToken } from "../Context/ClientContext";
 
 
 const LoginForm = () => {
@@ -12,15 +13,10 @@ const LoginForm = () => {
     const [error, setError] = useState(null); // Add the error state
     const navigate = useNavigate();
 
+    
 
     const loginUser = (user) => {
-        return fetch("/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify(user)
-        })
+        return fetchWithToken("POST", "", "/login", user)
             .then(function (res) {
                 if (res.status === 404) {
                     throw new Error("Username not found!");
@@ -30,7 +26,7 @@ const LoginForm = () => {
                 else {
                     const token = res.headers.get("Authorization");
                     localStorage.setItem("Token", token);
-                    return res.json(); // Return the response data instead of the token
+                    //return res.json(); // Return the response data instead of the token
                 }
             })
             .catch ((error) => {
