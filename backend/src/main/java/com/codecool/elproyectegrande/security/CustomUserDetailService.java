@@ -19,7 +19,7 @@ public class CustomUserDetailService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         final Client client  = clientDAO.findClientByClientName(username);
         if (client == null) {
-            throw new UsernameNotFoundException(username);
+            throw new UsernameNotFoundException(username + " not found.");
         }
         UserDetails user = User.withUsername(client.getClientName()).password(client.getPassword()).authorities("USER").build();
         return user;
