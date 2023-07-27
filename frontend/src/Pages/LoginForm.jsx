@@ -3,32 +3,38 @@ import Footer from "../Components/Footer";
 import {useState} from "react";
 import Loading from "./Loading/Loading";
 import { useClient } from "../Context/ClientContext";
+import ErrorMessage from "../Components/ErrorMessage";
 
 
-const LoginForm = (user) => {
+const LoginForm = () => {
+    const {client, login} = useClient();
     const [loading, setLoading] = useState();
+    const [error, setError] = useState(null); // Add the error state
     const navigate = useNavigate();
 
-    const {client, login} = useClient();
-
-    
 
     const loginUser = (user) => {
         return fetch("/login", {
             method: "POST",
             headers: {
-
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(user)
         })
-            .then( (res) => {
-                const token = res.headers.get("Authorization");
-                localStorage.setItem("Token", token);
-                return token;
+            .then(function (res) {
+                if (res.status === 404) {
+                    throw new Error("Username not found!");
+                } else if(res.status === 401){
+                    throw new Error("Wrong password!");
+                }
+                else {
+                    const token = res.headers.get("Authorization");
+                    localStorage.setItem("Token", token);
+                    return res.json(); // Return the response data instead of the token
+                }
             })
-            .then((client) => {
-                login(client)
+            .catch ((error) => {
+                throw error; // Re-throw the error to be caught in the parent component
             });
     }
 
@@ -50,11 +56,14 @@ const LoginForm = (user) => {
     const handleLoginUser = (user) => {
         setLoading(true);
         loginUser(user)
-            .then(() => {
+            .then((data) => {
+                // Handle successful login here if needed
+                console.log("User logged in successfully");
                 navigate("/");
             })
-            .catch(() => {
-                console.log("invalid username or password");
+            .catch((error) => {
+                console.log(error.message); // Log the error message to the console
+                setError(error.message); // Update the error state with the error message
             })
             .finally(() => {
                 setLoading(false);
@@ -97,6 +106,7 @@ const LoginForm = (user) => {
                     </button>
                 </div>
             </form>
+            {error && <ErrorMessage text={error} />} {/* Render ErrorMessage component */}
             <Footer/>
         </div>
     );

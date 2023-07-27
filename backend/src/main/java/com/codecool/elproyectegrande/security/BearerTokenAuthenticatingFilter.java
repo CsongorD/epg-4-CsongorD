@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -22,7 +21,7 @@ public class BearerTokenAuthenticatingFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain filterChain)
             throws ServletException, IOException {
         String token = request.getHeader("Authorization");
-        if (token != null && token.startsWith("Bearer: " + SERVICE_TOKEN)) {
+        if (token != null && (token.startsWith("Bearer: " + SERVICE_TOKEN) || token.startsWith("Bearer " + SERVICE_TOKEN))) {
             // Token is valid, let the request pass through the filter chain
 
             // Add the desired role to the user's authentication token
