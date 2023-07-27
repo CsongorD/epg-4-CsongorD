@@ -36,12 +36,12 @@ const NewProductForm = ({ onCancel, onSave }) => {
             </div>
 
             <div className="input-data textarea">
-              <label htmlFor="type">Product type:</label>
+              <label htmlFor="type" className="product-type-layer">Product type:</label>
               <select 
                   name="type" 
                   id="type" 
                   required 
-                  className="input-data dropdown" 
+                  className="dropdown" 
                   value={value} 
                   onChange={handleChange}>
                 <option></option>

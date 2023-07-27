@@ -46,8 +46,10 @@ const ProductPage = () => {
         <h2 className="info">{product.name}</h2>
         <p className="info">{product.description}</p>
         <p className="info">{product.price} $</p>
-        <button className="button" onClick={() => navigate("/")}>Cancel</button>
-        <button className="button">Add to cart</button>
+        <div className="buttonContainer">
+          <button className="button" onClick={() => navigate("/")}>Cancel</button>
+          <button className="button">Add to cart</button>
+        </div>
       </div>
     </>
   );

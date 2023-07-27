@@ -5,6 +5,7 @@ import Loading from "./Loading/Loading";
 import { useClient } from "../Context/ClientContext";
 import ErrorMessage from "../Components/ErrorMessage";
 import { fetchWithToken } from "../Context/ClientContext";
+import { useEffect } from "react";
 
 
 const LoginForm = () => {
@@ -13,7 +14,6 @@ const LoginForm = () => {
     const [error, setError] = useState(null); // Add the error state
     const navigate = useNavigate();
 
-    
 
     const loginUser = (user) => {
         return fetchWithToken("POST", "", "/login", user)
@@ -53,8 +53,7 @@ const LoginForm = () => {
         setLoading(true);
         loginUser(user)
             .then((data) => {
-                // Handle successful login here if needed
-                console.log("User logged in successfully");
+                login(data)
                 navigate("/");
             })
             .catch((error) => {
@@ -95,14 +94,14 @@ const LoginForm = () => {
                     />
                 </div>
 
-                <div className="buttons">
+                <div className="buttonContainer">
                     <button className="button" type="submit">Login</button>
                     <button className="button" type="button" onClick={onCancel}>
                         Cancel
                     </button>
                 </div>
             </form>
-            {error && <ErrorMessage text={error} />} {/* Render ErrorMessage component */}
+            {error && <ErrorMessage text={error} setError={setError} />} {/* Render ErrorMessage component */}
             <Footer/>
         </div>
     );
